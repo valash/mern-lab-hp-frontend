@@ -12,9 +12,9 @@ class App extends Component {
                 <header className="App-header">
                     <h1>hello harry potter LOVERS</h1>
                 </header>
-                <Route path="/" />
-                <Route path="/characters/:name" />
-                <Route path="/create" />
+                <Route path="/" exact component={Home} />
+                <Route path="/characters/:name" component={Show} />
+                <Route path="/create" component={Create} />
             </div>
         );
     }
