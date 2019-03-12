@@ -6,14 +6,24 @@ import Home from './Components/Home';
 import Create from './Components/Create';
 import Show from './Components/Show';
 
-//http://localhost:3001/characters
-
 import './App.css';
 
+const url = 'http://localhsot:3001/characters';
+
 class App extends Component {
-    state = {
-        name: ''
-    };
+    constructor() {
+        super();
+        this.state = {
+            characters: []
+            // searchInput= ""
+        };
+    }
+    componentDidMount() {
+        fetch('http://localhost:3001/characters/')
+            .then(res => res.json())
+            .then(res => this.setState({ characters: res }, () => console.log(this.state)));
+    }
+
     searchCharacter = e => {
         e.preventDefault();
         const characterName = e.target.elements.name.value;
@@ -24,6 +34,7 @@ class App extends Component {
             // this.setState({ name });
         });
     };
+
     render() {
         return (
             <div className="App">
