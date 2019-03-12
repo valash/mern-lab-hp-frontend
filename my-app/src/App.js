@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Search from './Components/Search';
 import axios from 'axios';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import Create from './Components/Create';
 import Show from './Components/Show';
 
 import './App.css';
 
-const url = 'http://localhsot:3001/characters';
+// const url = 'http://localhsot:3001/characters';
 
 class App extends Component {
     constructor() {
@@ -29,7 +29,7 @@ class App extends Component {
         const characterName = e.target.elements.name.value;
         axios.get(`http://localhost:3001/characters/${characterName}`).then(res => {
             console.log(res);
-            // const name = res.data;
+            // const name = res.data.name;
             // console.log(name);
             // this.setState({ name });
         });
