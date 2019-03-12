@@ -1,20 +1,51 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import Search from './Components/Search';
+import axios from 'axios';
+import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import Create from './Components/Create';
 import Show from './Components/Show';
+
+//http://localhost:3001/characters
+
 import './App.css';
 
 class App extends Component {
+    state = {
+        name: ''
+    };
+    searchCharacter = e => {
+        e.preventDefault();
+        const characterName = e.target.elements.name.value;
+        axios.get(`http://localhost:3001/characters/${characterName}`).then(res => {
+            console.log(res);
+            // const name = res.data;
+            // console.log(name);
+            // this.setState({ name });
+        });
+    };
     render() {
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1>hello harry potter LOVERS</h1>
+                    <h1 className="App-title">Hello HP</h1>
+                    <Switch>
+                        <Route path="/" to="/home" />
+                        <Route path="/create" to="/create" />
+                        <Route path="/characters" to="/characters" />
+                    </Switch>
                 </header>
-                <Route path="/" exact component={Home} />
-                <Route path="/characters/:name" component={Show} />
-                <Route path="/create" component={Create} />
+                <div className="main">
+                    <div className="search">
+                        <Search searchCharacter={this.searchCharacter} />
+                        {this.state.name ? <p>Character Name : {this.state.name}</p> : <p>Enter a Name</p>}
+                    </div>
+                    <div className="nav-bar">
+                        <Route path="/" exact render={() => <Home characters={this.state.name} />} />
+                        <Route path="/characters/:name" render={props => <Show {...props} {...this.state} />} />
+                        <Route path="/create" render={() => <Create addChar={this.addChar} />} />
+                    </div>
+                </div>
             </div>
         );
     }

@@ -4,7 +4,7 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <p>homepagebish</p>
+                <p>list of all charcters</p>
             </div>
         );
     }
